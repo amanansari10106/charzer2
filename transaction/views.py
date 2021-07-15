@@ -1,3 +1,4 @@
+
 from django.db.models.fields import PositiveIntegerRelDbTypeMixin
 from django.http.response import HttpResponse
 from rest_framework import response
@@ -162,3 +163,37 @@ class addmoney(APIView):
         }
         r = requests.post(url, headers=headers, data=json.dumps(dat))
         return Response(r.json())
+
+import hashlib
+import hmac
+import base64
+
+class verifyaddmoney(APIView):
+    def post(self, request):
+        
+        postData = {
+        "orderId" : request.data['orderId'], 
+        "orderAmount" : request.data['orderAmount'], 
+        "referenceId" : request.data['referenceId'], 
+        "txStatus" : request.data['txStatus'], 
+        "paymentMode" : request.data['paymentMode'], 
+        "txMsg" : request.data['txMsg'], 
+        "txTime" : request.data['txTime'], 
+        "signature": request.data["signature"]
+        }
+
+        signatureData = postData["orderId"] + postData["orderAmount"] + postData["referenceId"] + postData["txStatus"] + postData["paymentMode"] + postData["txMsg"] + postData["txTime"]
+
+        message = bytes(signatureData).encode('utf-8')
+        secretkey = "d"
+
+        #get secret key from your config
+        # secret = bytes(secretKey).encode('utf-8')
+        secret = bytes(secretkey).encode('utf-8')
+        signature = base64.b64encode(hmac.new(secret, 
+        message,digestmod=hashlib.sha256).digest())
+        if signature == postData["signature"]:
+            return Response({"resp":"confirmed"}, status=status.HTTP_200_OK)
+
+        else :
+            return Response({"resp":"fail"}, status=status.HTTP_406_NOT_ACCEPTABLE)

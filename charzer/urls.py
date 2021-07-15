@@ -23,6 +23,7 @@ urlpatterns = [
     path("device/",include("device.urls")),
     path("organization/",include("organization.urls")),
     path("transaction/",include("transaction.urls")),
+    
 ]
 
 from django.conf import settings
