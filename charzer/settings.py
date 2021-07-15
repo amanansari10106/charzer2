@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import django_heroku
+# import django_heroku
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -137,5 +137,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 website_name = "http://127.0.0.1:8000"
 
 # Activate Django-Heroku.
-django_heroku.settings(locals()) 
-pass
+# django_heroku.settings(locals()) 
