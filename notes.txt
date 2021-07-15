@@ -1,0 +1,5 @@
+datetime function :
+    strftime() -> to extract time and date from datetime :
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    output : 
+        25/06/2021 07:58:56
