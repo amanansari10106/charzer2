@@ -1,0 +1,1 @@
+print(STATIC_ROOT)
